@@ -17,7 +17,7 @@ concurrency:
 jobs:
   style:
     name: brew style --fix
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     if: github.actor != 'github-actions[bot]'
     steps:
       - name: Checkout tap
