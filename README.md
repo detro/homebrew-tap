@@ -1,4 +1,4 @@
-# Detro Tap
+# Homebrew Tap by Zio Ivan (a.k.a. Detro)
 
 A [Homebrew](https://brew.sh) tap for [detro](https://github.com/detro)'s projects.
 
