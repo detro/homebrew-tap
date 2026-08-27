@@ -22,11 +22,9 @@ jobs:
     steps:
       - name: Checkout tap
         uses: actions/checkout@v7
-        with:
-          ref: ${{ github.ref_name }}
 
       - name: Set up Homebrew
-        uses: Homebrew/actions/setup-homebrew@master
+        uses: Homebrew/actions/setup-homebrew@2026.08.24.1
 
       - name: Style casks
         run: brew style --fix Casks/
