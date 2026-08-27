@@ -6,13 +6,13 @@ cask "spelunk" do
     on_arm do
       sha256 "7d4fba7a7f96a1c7f67a5d5fc5bb862200d9857228e130cf65c4f57851b13323"
       url "https://github.com/detro/spelunk/releases/download/v#{version}/spelunk_#{version}_darwin_arm64.tgz",
-        verified: "github.com/detro/spelunk"
+          verified: "github.com/detro/spelunk"
       rename "spelunk_2.2.0-rc1_darwin_arm64/spelunk", "spelunk"
     end
     on_intel do
       sha256 "9e8e07819c50de48c9a6bb7e778f0b40dda8a46868d5c7da3399035ffe3d00ce"
       url "https://github.com/detro/spelunk/releases/download/v#{version}/spelunk_#{version}_darwin_amd64.tgz",
-        verified: "github.com/detro/spelunk"
+          verified: "github.com/detro/spelunk"
       rename "spelunk_2.2.0-rc1_darwin_amd64/spelunk", "spelunk"
     end
   end
@@ -20,13 +20,13 @@ cask "spelunk" do
     on_arm do
       sha256 "4b2e59544fca9adf6b04700d02abd3a56db7b7a94affe1dc7c756c7f9c972987"
       url "https://github.com/detro/spelunk/releases/download/v#{version}/spelunk_#{version}_linux_arm64.tgz",
-        verified: "github.com/detro/spelunk"
+          verified: "github.com/detro/spelunk"
       rename "spelunk_2.2.0-rc1_linux_arm64/spelunk", "spelunk"
     end
     on_intel do
       sha256 "30d0e5dc22522fe5b9f7427318383bfb328d5924b94cca09018c5c929d386734"
       url "https://github.com/detro/spelunk/releases/download/v#{version}/spelunk_#{version}_linux_amd64.tgz",
-        verified: "github.com/detro/spelunk"
+          verified: "github.com/detro/spelunk"
       rename "spelunk_2.2.0-rc1_linux_amd64/spelunk", "spelunk"
     end
   end
@@ -40,15 +40,15 @@ cask "spelunk" do
   end
 
   binary "spelunk"
+  generate_completions_from_executable "spelunk", "completion", "-c",
+                                       base_name: "spelunk",
+                                       shells:    [:bash, :zsh, :fish]
 
   postflight do
     if OS.mac?
       system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "#{staged_path}/spelunk"]
     end
   end
-  generate_completions_from_executable "spelunk", "completion", "-c",
-    base_name: "spelunk",
-    shells: [:bash, :zsh, :fish]
 
   # No zap stanza required
 end
