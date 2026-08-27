@@ -1,0 +1,42 @@
+name: Brew - Cask Test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  checks: read
+  contents: read
+  pull-requests: read
+
+jobs:
+  test:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout tap
+        uses: actions/checkout@v7
+
+      - name: Set up Homebrew
+        id: set-up-homebrew
+        uses: Homebrew/actions/setup-homebrew@master
+
+      - name: Cache Homebrew Bundler RubyGems
+        uses: actions/cache@v6
+        with:
+          path: ${{ steps.set-up-homebrew.outputs.gems-path }}
+          key: macos-latest-rubygems-${{ steps.set-up-homebrew.outputs.gems-hash }}
+          restore-keys: macos-latest-rubygems-
+
+      - name: Check Casks load on every OS and architecture
+        env:
+          TAP_NAME: ${{ steps.set-up-homebrew.outputs.tap-name }}
+        run: brew readall --aliases --os=all --arch=all "$TAP_NAME"
+
+      - name: Audit Casks
+        env:
+          TAP_NAME: ${{ steps.set-up-homebrew.outputs.tap-name }}
+        run: brew audit --except=installed --tap="$TAP_NAME"

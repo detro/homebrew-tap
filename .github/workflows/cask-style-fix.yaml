@@ -1,0 +1,43 @@
+name: Brew - Cask Style Fix
+
+permissions:
+  contents: write
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'Casks/**.rb'
+  workflow_dispatch:
+
+concurrency:
+  group: cask-style
+  cancel-in-progress: false
+
+jobs:
+  style:
+    name: brew style --fix
+    runs-on: macos-latest
+    if: github.actor != 'github-actions[bot]'
+    steps:
+      - name: Checkout tap
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ github.ref_name }}
+
+      - name: Set up Homebrew
+        uses: Homebrew/actions/setup-homebrew@master
+
+      - name: Style casks
+        run: brew style --fix Casks/
+
+      - name: Commit fixes
+        run: |
+          if [[ -z "$(git status --porcelain)" ]]; then
+            echo "No style fixes needed"
+            exit 0
+          fi
+          git config user.name  'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -am 'style: brew style --fix'
+          git push

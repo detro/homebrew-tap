@@ -16,23 +16,25 @@ cask "spelunk" do
   end
 
   name "spelunk"
-  desc "Retrieve secrets from Kubernetes, Vault, AWS, GCP, Azure, 1Password and more, through a unified URI syntax."
+  desc "Retrieve secrets from Kubernetes, Vault, AWS, GCP, Azure, 1Password and more"
   homepage "https://github.com/detro/spelunk"
 
   livecheck do
     skip "Auto-generated on release."
   end
 
+  depends_on macos: :monterey
+
   binary "spelunk"
+  generate_completions_from_executable "spelunk", "completion", "-c",
+                                       base_name: "spelunk",
+                                       shells:    [:bash, :zsh, :fish]
 
   postflight do
     if OS.mac?
       system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "#{staged_path}/spelunk"]
     end
   end
-  generate_completions_from_executable "spelunk", "completion", "-c",
-    base_name: "spelunk",
-    shells: [:bash, :zsh, :fish]
 
   # No zap stanza required
 end
