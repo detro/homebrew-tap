@@ -29,13 +29,11 @@ jobs:
       - name: Style casks
         run: brew style --fix Casks/
 
-      - name: Commit fixes
-        run: |
-          if [[ -z "$(git status --porcelain)" ]]; then
-            echo "No style fixes needed"
-            exit 0
-          fi
-          git config user.name  'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git commit -am 'style: brew style --fix'
-          git push origin "HEAD:${GITHUB_REF_NAME}"
+      - uses: planetscale/ghcommit-action@v0.2.22
+        with:
+          commit_message: "fix(bot-commit): brew style fix"
+          repo: ${{ github.repository }}
+          branch: ${{ github.head_ref || github.ref_name }}
+          file_pattern: 'Casks/*.rb'
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
