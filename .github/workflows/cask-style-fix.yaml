@@ -31,7 +31,7 @@ jobs:
 
       - uses: planetscale/ghcommit-action@v0.2.22
         with:
-          commit_message: "fix(bot-commit): brew style fix"
+          commit_message: "fix: Automatic `brew style --fix Casks/`"
           repo: ${{ github.repository }}
           branch: ${{ github.head_ref || github.ref_name }}
           file_pattern: 'Casks/*.rb'
