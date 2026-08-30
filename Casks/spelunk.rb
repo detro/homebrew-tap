@@ -6,13 +6,13 @@ cask "spelunk" do
     on_arm do
       sha256 "c3ee29a88f028ce272c808e56a417a0e2317267b466c605e71926ea256a17ac9"
       url "https://github.com/detro/spelunk/releases/download/v#{version}/spelunk_#{version}_darwin_arm64.tgz",
-        verified: "github.com/detro/spelunk"
+          verified: "github.com/detro/spelunk"
       rename "spelunk_2.2.1_darwin_arm64/spelunk", "spelunk"
     end
     on_intel do
       sha256 "c72f6ed4a25ce7e3f52e38aa995bd6fed31bf8556c14d047512d422be01ab6ac"
       url "https://github.com/detro/spelunk/releases/download/v#{version}/spelunk_#{version}_darwin_amd64.tgz",
-        verified: "github.com/detro/spelunk"
+          verified: "github.com/detro/spelunk"
       rename "spelunk_2.2.1_darwin_amd64/spelunk", "spelunk"
     end
   end
@@ -20,13 +20,13 @@ cask "spelunk" do
     on_arm do
       sha256 "cdcf6eddcf843e5f9aa16abcfec7b27302a9dae0c39c72fdc4b0ef0634837d94"
       url "https://github.com/detro/spelunk/releases/download/v#{version}/spelunk_#{version}_linux_arm64.tgz",
-        verified: "github.com/detro/spelunk"
+          verified: "github.com/detro/spelunk"
       rename "spelunk_2.2.1_linux_arm64/spelunk", "spelunk"
     end
     on_intel do
       sha256 "19aceeb7e79e5e20b1c1bda34651642f42acbee5b561a1ce144793b70181bf12"
       url "https://github.com/detro/spelunk/releases/download/v#{version}/spelunk_#{version}_linux_amd64.tgz",
-        verified: "github.com/detro/spelunk"
+          verified: "github.com/detro/spelunk"
       rename "spelunk_2.2.1_linux_amd64/spelunk", "spelunk"
     end
   end
@@ -58,15 +58,14 @@ cask "spelunk" do
   end
 
   uninstall delete: [
-      "#{HOMEBREW_PREFIX}/etc/bash_completion.d/spelunk",
-      "#{HOMEBREW_PREFIX}/share/zsh/site-functions/_spelunk",
-      "#{HOMEBREW_PREFIX}/share/fish/vendor_completions.d/spelunk.fish",
-    ]
+    "#{HOMEBREW_PREFIX}/etc/bash_completion.d/spelunk",
+    "#{HOMEBREW_PREFIX}/share/fish/vendor_completions.d/spelunk.fish",
+    "#{HOMEBREW_PREFIX}/share/zsh/site-functions/_spelunk",
+  ]
 
   zap delete: [
-      "#{HOMEBREW_PREFIX}/etc/bash_completion.d/spelunk",
-      "#{HOMEBREW_PREFIX}/share/zsh/site-functions/_spelunk",
-      "#{HOMEBREW_PREFIX}/share/fish/vendor_completions.d/spelunk.fish",
-    ]
-
+    "#{HOMEBREW_PREFIX}/etc/bash_completion.d/spelunk",
+    "#{HOMEBREW_PREFIX}/share/fish/vendor_completions.d/spelunk.fish",
+    "#{HOMEBREW_PREFIX}/share/zsh/site-functions/_spelunk",
+  ]
 end
