@@ -40,15 +40,32 @@ cask "spelunk" do
   end
 
   binary "spelunk"
-  generate_completions_from_executable "spelunk", "completion", "-c",
-                                       base_name: "spelunk",
-                                       shells:    [:bash, :zsh, :fish]
 
   postflight do
     if OS.mac?
       system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "#{staged_path}/spelunk"]
     end
+
+    {
+      "bash" => "#{HOMEBREW_PREFIX}/etc/bash_completion.d/spelunk",
+      "zsh"  => "#{HOMEBREW_PREFIX}/share/zsh/site-functions/_spelunk",
+      "fish" => "#{HOMEBREW_PREFIX}/share/fish/vendor_completions.d/spelunk.fish",
+    }.each do |shell, target|
+      completion = system_command("#{staged_path}/spelunk", args: ["completion", "-c", shell]).stdout
+      FileUtils.mkdir_p File.dirname(target)
+      File.write(target, completion)
+    end
   end
 
-  # No zap stanza required
+  uninstall delete: [
+    "#{HOMEBREW_PREFIX}/etc/bash_completion.d/spelunk",
+    "#{HOMEBREW_PREFIX}/share/fish/vendor_completions.d/spelunk.fish",
+    "#{HOMEBREW_PREFIX}/share/zsh/site-functions/_spelunk",
+  ]
+
+  zap delete: [
+    "#{HOMEBREW_PREFIX}/etc/bash_completion.d/spelunk",
+    "#{HOMEBREW_PREFIX}/share/fish/vendor_completions.d/spelunk.fish",
+    "#{HOMEBREW_PREFIX}/share/zsh/site-functions/_spelunk",
+  ]
 end
