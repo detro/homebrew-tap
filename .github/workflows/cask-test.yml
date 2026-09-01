@@ -22,7 +22,7 @@ jobs:
 
       - name: Set up Homebrew
         id: set-up-homebrew
-        uses: Homebrew/actions/setup-homebrew@2026.08.24.1
+        uses: Homebrew/actions/setup-homebrew@2026.08.31.1
 
       - name: Cache Homebrew Bundler RubyGems
         uses: actions/cache@v6
